@@ -1,15 +1,15 @@
-extends CharacterBody2D;
+extends CharacterBody2D
 
-class_name Bird;
+class_name Bird
 
-signal game_started;
+signal game_started
 
-const flap_force = -300;
-const max_speed = 400;
-var gravity = 850;
-var rotation_speed = 3;
-var started = false;
-var process_input =true;
+const flap_force = -300
+const max_speed = 400
+var gravity = 850
+var rotation_speed = 3
+var started = false
+var process_input = true
 #setting up game stuff-------------------------
 func jump():
 	velocity.y = flap_force
@@ -22,12 +22,19 @@ func _ready():
 
 #-------------------------
 func tilt():
-	if velocity.y > 0 and rad_to_deg(rotation <90):
-		rotation += rotation_speed * rad_to_deg(1)
+	if velocity.y > 0 and rad_to_deg(rotation) < 90:
+		rotation += rotation_speed * deg_to_rad(1)
 	elif  velocity.y <0 and rad_to_deg(rotation) > -30:
-
-
-
+		rotation -= rotation_speed * deg_to_rad(1)
+		
+#-----------
+func done():
+	process_input =false
+#----------------
+func stop():
+	$AnimatedSprite2D.stop()
+	gravity = 0
+	velocity = Vector2.ZERO
 #----------------
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_up") and process_input:
@@ -36,7 +43,7 @@ func _physics_process(delta):
 			game_started.emit()
 			started = true
 		jump()
-	if started:
+	if !started:
 		return
 		
 	velocity.y +=gravity * delta

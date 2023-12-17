@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="Godot Game Learning"
-run/main_scene="res://Scenes/bird.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://Art/icon.svg"
+
+[display]
+
+window/size/viewport_width=300
+window/size/viewport_height=550
+window/stretch/mode="viewport"
 
 [rendering]
 
